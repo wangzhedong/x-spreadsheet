@@ -11,8 +11,10 @@
     function load(){
       x.spreadsheet('#x-spreadsheet-demo')
         .loadData({
-          freeze: [2, 2],
+          //freeze: [2, 2],
+          disabled:[0,1,2], //disabled的行
           styles: [
+            { bgcolor: '#f4f5f8', wrapText: true, color: '#900b09', bb: ['thin', '#0366d6'], bt: ['thin', '#0366d6'], br: ['thin', '#0366d6'], bl: ['thin', '#0366d6'] },
             { bgcolor: '#f4f5f8', wrapText: true, color: '#900b09', bb: ['thin', '#0366d6'], bt: ['thin', '#0366d6'], br: ['thin', '#0366d6'], bl: ['thin', '#0366d6'] },
           ],
           merges: [

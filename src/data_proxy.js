@@ -674,6 +674,7 @@ export default class DataProxy {
     } else {
       selector.each((ri, ci) => {
         const cell = this.getCellOrNew(ri, ci);
+        console.info("cell",cell);
         let cstyle = {};
         if (cell.si !== undefined) {
           cstyle = helper.cloneDeep(styles[cell.si]);

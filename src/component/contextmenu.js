@@ -16,6 +16,8 @@ const menuItems = [
   { key: 'delete-row', title: 'Delete row' },
   { key: 'delete-column', title: 'Delete column' },
   { key: 'delete-cell-text', title: 'Delete cell' },
+  { key: 'disabled-row', title: '禁掉该行' },
+  { key: 'set-col-rule', title: '设置列规则' }
 ];
 
 function buildMenuItem(item) {
@@ -56,6 +58,7 @@ export default class ContextMenu {
   }
 
   setPosition(x, y) {
+    console.info("menu",x,y);
     const { el } = this;
     const { height, width } = el.show().offset();
     const view = this.viewFn();

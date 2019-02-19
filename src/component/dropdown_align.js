@@ -9,9 +9,11 @@ function buildItemWithIcon(iconName) {
 
 export default class DropdownAlign extends Dropdown {
   constructor(aligns, align) {
+    console.info(aligns,align);
     const icon = new Icon(`align-${align}`);
     const naligns = aligns.map(it => buildItemWithIcon(`align-${it}`)
       .on('click', () => {
+        console.log(it,this);
         this.setTitle(it);
         this.change(it);
       }));

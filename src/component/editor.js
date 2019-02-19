@@ -11,7 +11,7 @@ function resetTextareaSize() {
     } = this;
     const tlineWidth = textlineEl.offset().width + 9;
     const maxWidth = this.viewFn().width - areaOffset.left - 9;
-    // console.log('tlineWidth:', tlineWidth, ':', maxWidth);
+    console.log('tlineWidth:', tlineWidth, ':', maxWidth);
     if (tlineWidth > areaOffset.width) {
       let twidth = tlineWidth;
       if (tlineWidth > maxWidth) {
@@ -30,7 +30,12 @@ function resetTextareaSize() {
 
 function inputEventHandler(evt) {
   const v = evt.target.value;
-  // console.log(evt, 'v:', v);
+  console.log(evt, 'v:', v);
+  if(v == '123'){
+    alert("数据不能为123");
+    this.inputText = '';
+    return;
+  }
   this.inputText = v;
   const start = v.lastIndexOf('=');
   const { suggest, textlineEl } = this;
@@ -55,7 +60,7 @@ function setText(text, position) {
   const { textEl, textlineEl } = this;
   // firefox bug
   textEl.el.blur();
-
+  console.info("text",text);
   textEl.val(text);
   textlineEl.html(text);
   setTextareaRange.call(this, position);
@@ -155,12 +160,15 @@ export default class Editor {
     }
   }
 
-  setCell(cell) {
+  setCell(cell,flag) {
+    if(flag){
+      return;
+    }
     this.el.show();
     this.cell = cell;
     const text = (cell && cell.text) || '';
     this.inputText = text;
-    // console.log('text>>:', text);
+    console.log('text>>:', text);
     setText.call(this, text, text.length);
     resetTextareaSize.call(this);
   }

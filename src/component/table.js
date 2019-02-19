@@ -32,7 +32,7 @@ function renderCell(rindex, cindex) {
   const cell = data.getCell(rindex, cindex);
 
   const style = data.getCellStyle(rindex, cindex);
-  // console.log('style:', style);
+  console.log('style:', style);
   const dbox = getDrawBox.call(this, rindex, cindex);
   dbox.bgcolor = style.bgcolor;
   draw.rect(dbox);

@@ -187,6 +187,7 @@ function sheetFreeze() {
 }
 
 function sheetReset() {
+  console.log("重置sheet");
   const {
     tableEl,
     overlayerEl,
@@ -298,8 +299,17 @@ function editorSetOffset() {
 
 function editorSet() {
   const { editor, data } = this;
+  let flag  = false;
+  let row = data.selector.indexes.toString().split(",")[0];
+  for (let i = 0; i < data.d.disabled.length; i++) {
+    const disabledRow = data.d.disabled[i];
+    if(disabledRow == row){
+      flag = true;
+      break;
+    }
+  }
   editorSetOffset.call(this);
-  editor.setCell(data.getSelectedCell());
+  editor.setCell(data.getSelectedCell(),flag);
   clearClipboard.call(this);
 }
 
@@ -404,6 +414,7 @@ function toolbarChange(type, value) {
   }
 }
 
+/**初始化sheet的所有事件 */
 function sheetInitEvents() {
   const {
     overlayerEl,
@@ -423,11 +434,14 @@ function sheetInitEvents() {
     }).on('mousedown', (evt) => {
       if (evt.buttons === 2) {
         if (data.xyInSelectedRect(evt.offsetX, evt.offsetY)) {
+          console.log("右键",contextMenu);
+          //contextMenu.buildMenuItem( { key: 'disabled-row', title: '禁掉该行' });
           contextMenu.setPosition(evt.offsetX, evt.offsetY);
         } else {
           contextMenu.hide();
         }
       } else if (evt.detail === 2) {
+        //双击事件
         editorSet.call(this);
       } else {
         editor.clear();
@@ -479,7 +493,13 @@ function sheetInitEvents() {
       paste.call(this, 'text');
     } else if (type === 'paste-format') {
       paste.call(this, 'format');
-    } else {
+    } else if(type === 'disabled-row'){
+      let row = this.data.selector.indexes.toString().split(",")[0];
+      let d = this.data.d.disabled;
+      console.info("禁掉该行",this.data,row);
+      console.info(d);
+      d.push(Number(row));
+    }else {
       insertDeleteRowColumn.call(this, type);
     }
   };
